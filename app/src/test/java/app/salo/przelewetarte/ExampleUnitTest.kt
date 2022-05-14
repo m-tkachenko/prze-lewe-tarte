@@ -1,4 +1,4 @@
-package com.example.przelewetarte
+package app.salo.przelewetarte
 
 import org.junit.Test
 
