@@ -19,13 +19,7 @@ class HomeViewModel @Inject constructor(
 
     fun signOutUser() {
         viewModelScope.launch {
-            userAuthentication.signOut().collect { result ->
-                when(result) {
-                    is Resource.Success -> _state.value = HomeState(isSignOut = true)
-                    is Resource.Error -> _state.value = HomeState(error = result.message ?: "Error")
-                    is Resource.Loading -> _state.value = HomeState(isLoading = true)
-                }
-            }
+            userAuthentication.signOut()
         }
     }
 }

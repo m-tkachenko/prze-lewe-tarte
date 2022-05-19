@@ -6,6 +6,7 @@ import app.salo.przelewetarte.domain.use_case.UserAuthenticationUseCases
 import app.salo.przelewetarte.domain.use_case.user_authentication.UserAlreadyAuthenticatedUseCase
 import app.salo.przelewetarte.domain.use_case.user_authentication.UserSignInUseCase
 import app.salo.przelewetarte.domain.use_case.user_authentication.UserSignOutUseCase
+import app.salo.przelewetarte.domain.use_case.user_authentication.UserSignUpUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -29,6 +30,7 @@ object AppModule {
     fun providesUseCases(repository: AuthRepository) = UserAuthenticationUseCases(
         signIn = UserSignInUseCase(repository),
         signOut = UserSignOutUseCase(repository),
+        signUp = UserSignUpUseCase(repository),
         isUserAuthenticated = UserAlreadyAuthenticatedUseCase(repository)
     )
 }

@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.salo.przelewetarte.presentation.home.HomeScreen
 import app.salo.przelewetarte.presentation.sign_in.SignInScreen
+import app.salo.przelewetarte.presentation.sign_up.SignUpScreen
 import app.salo.przelewetarte.presentation.theme.PrzelewetarteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +22,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PrzelewetarteTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -42,6 +42,12 @@ class MainActivity : ComponentActivity() {
                             route = Screen.HomeScreen.route
                         ) {
                             HomeScreen(navController = navController)
+                        }
+
+                        composable(
+                            route = Screen.SignUpScreen.route
+                        ) {
+                            SignUpScreen(navController = navController)
                         }
                     }
                 }

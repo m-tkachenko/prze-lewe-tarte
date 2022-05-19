@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
     fun isUserAlreadyAuthenticated(): Boolean
 
-    suspend fun userSignIn(email: String, password: String) : Flow<Resource<Boolean>>
-    suspend fun userSignUp() : Flow<Resource<Boolean>>
+    suspend fun userSignIn(email: String, password: String): Flow<Resource<Boolean>>
+    suspend fun userSignUp(email: String, password: String): Flow<Resource<Boolean>>
     suspend fun userSignOut()
 
     fun getFirebaseAuthState(): Flow<Boolean>

@@ -43,27 +43,15 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(25.dp))
 
                 Button(
-                    onClick = { viewModel.signOutUser() },
+                    onClick = {
+                        viewModel.signOutUser()
+                        navController.navigate(Screen.SignInScreen.route)
+                    },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                 ) {
                     Text(text = "Sign-out")
                 }
             }
         }
-        
-
-
-        if(homeState.isLoading)
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        if(homeState.isSignOut)
-            navController.navigate(Screen.SignInScreen.route)
-        if(homeState.error.isNotBlank())
-            Text(
-                text = homeState.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentHeight()
-            )
     }
 }
