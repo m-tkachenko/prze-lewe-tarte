@@ -1,5 +1,6 @@
 package app.salo.przelewetarte.presentation.sign_in
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import app.salo.przelewetarte.presentation.Screen
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 
 @Composable
 fun SignInScreen(
@@ -43,8 +48,8 @@ fun SignInScreen(
         ) {
             Button(
                 onClick = {
-                    viewModel.signInUser(email = "test2@gmail.com", password = "1234567")
-                          },
+                    viewModel.signInUser(email = "test2@gmail.com", password = "12345678")
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
             ) {
                 Text(text = "Sign in")
@@ -54,7 +59,7 @@ fun SignInScreen(
 
             Button(
                 onClick = {
-                          navController.navigate(Screen.SignUpScreen.route)
+                    navController.navigate(Screen.SignUpScreen.route)
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
             ) {

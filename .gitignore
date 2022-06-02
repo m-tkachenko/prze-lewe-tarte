@@ -130,6 +130,15 @@ proguard/
 # NDK
 obj/
 
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+
 # IntelliJ IDEA
 *.iws
 /out/

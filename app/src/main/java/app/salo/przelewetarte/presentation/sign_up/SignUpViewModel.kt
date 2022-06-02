@@ -5,25 +5,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.salo.przelewetarte.common.Resource
-import app.salo.przelewetarte.domain.use_case.UserAuthenticationUseCases
+import app.salo.przelewetarte.domain.use_case.UserMainUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val userAuthentication: UserAuthenticationUseCases
+    private val user: UserMainUseCases,
 ): ViewModel() {
-    private val _state = mutableStateOf(SignUpState())
-    val state: State<SignUpState> = _state
+    private val _userSignUpState = mutableStateOf(SignUpState())
+    val userSignUpState: State<SignUpState> = _userSignUpState
 
-    fun signUpUser(email: String, password: String) {
+    fun signUpUser(email: String, password: String, username: String) {
         viewModelScope.launch {
-            userAuthentication.signUp(email, password).collect { result ->
+            user.signUp(email, password, username).collect { result ->
                 when(result) {
-                    is Resource.Success -> _state.value = SignUpState(isSignUp = true)
-                    is Resource.Error -> _state.value = SignUpState(error = result.message ?: "Error")
-                    is Resource.Loading -> _state.value = SignUpState(isLoading = true)
+                    is Resource.Success -> _userSignUpState.value = SignUpState(isSignUp = true)
+                    is Resource.Error -> _userSignUpState.value = SignUpState(error = result.message ?: "Error")
+                    is Resource.Loading -> _userSignUpState.value = SignUpState(isLoading = true)
                 }
             }
         }

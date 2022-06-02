@@ -21,7 +21,7 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val signUpState = viewModel.state.value
+    val signUpState = viewModel.userSignUpState.value
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -32,7 +32,7 @@ fun SignUpScreen(
         ) {
             Button(
                 onClick = {
-                    viewModel.signUpUser("test2@gmail.com", "12345678")
+                    viewModel.signUpUser("test2@gmail.com", "12345678", "test2")
                 },
                 colors = ButtonDefaults.buttonColors(Color.Blue)
             ) {
