@@ -2,14 +2,21 @@ package app.salo.przelewetarte.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import app.salo.przelewetarte.R
+
+val mainFont = FontFamily(
+    Font(R.font.secular_one_font, weight = FontWeight.Normal)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = mainFont,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )

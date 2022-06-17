@@ -11,21 +11,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class AuthViewModel @Inject constructor(
     private val user: UserMainUseCases
 ): ViewModel() {
     val isUserAuthenticated get() = user.isUserAuthenticated()
 
-    private val _state = mutableStateOf(SignInState())
-    val state: State<SignInState> = _state
+    private val _state = mutableStateOf(AuthState())
+    val state: State<AuthState> = _state
 
     fun signInUser(email: String, password: String) {
         viewModelScope.launch {
             user.signIn(email, password).collect { result ->
                 when(result) {
-                    is Resource.Success -> _state.value = SignInState(isSignIn = true)
-                    is Resource.Error -> _state.value = SignInState(error = result.message ?: "Error")
-                    is Resource.Loading -> _state.value = SignInState(isLoading = true)
+                    is Resource.Success -> _state.value = AuthState(isSignIn = true)
+                    is Resource.Error -> _state.value = AuthState(error = result.message ?: "Error")
+                    is Resource.Loading -> _state.value = AuthState(isLoading = true)
                 }
             }
         }
