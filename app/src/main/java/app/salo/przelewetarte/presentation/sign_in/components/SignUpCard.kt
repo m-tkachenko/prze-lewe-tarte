@@ -12,11 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import app.salo.przelewetarte.presentation.components.BeautifulTextField
 import app.salo.przelewetarte.presentation.components.OrangeButton
+import app.salo.przelewetarte.presentation.sign_in.AuthMode
+import app.salo.przelewetarte.presentation.sign_in.AuthViewModel
 
 @Composable
-fun SignUpCard() {
+fun SignUpCard(
+    viewModel: AuthViewModel = hiltViewModel()
+) {
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -48,14 +53,14 @@ fun SignUpCard() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 OrangeButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { viewModel.authMode.value = AuthMode.SIGN_IN_MODE },
                     paddingHorizontal = 16.dp,
                     textInButton = "sign in",
                     textSize = 16.sp
                 )
 
                 OrangeButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { /* NOTHING :) */ },
                     paddingHorizontal = 16.dp,
                     textInButton = "register",
                     textSize = 16.sp
@@ -83,7 +88,7 @@ fun SignUpCard() {
                 hintText = "********"
             )
 
-            val checkedState = remember { mutableStateOf(true) }
+            val checkedState = remember { mutableStateOf(false) }
 
             Row(
                 modifier = Modifier

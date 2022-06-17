@@ -2,16 +2,19 @@ package app.salo.przelewetarte.presentation.sign_in
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import app.salo.przelewetarte.R
 import app.salo.przelewetarte.presentation.Screen
 import app.salo.przelewetarte.presentation.sign_in.components.AppNameText
+import app.salo.przelewetarte.presentation.sign_in.components.SignInCard
 import app.salo.przelewetarte.presentation.sign_in.components.SignUpCard
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(
@@ -19,10 +22,17 @@ fun AuthScreen(
     navController: NavController
 ) {
     val signInState = viewModel.state.value
+    var modeOfAuth by remember {
+        mutableStateOf(AuthMode.SIGN_IN_MODE)
+    }
 
     LaunchedEffect(Unit) {
         if(viewModel.isUserAuthenticated)
             navController.navigate(Screen.HomeScreen.route)
+
+        viewModel.authMode.collect {
+            modeOfAuth = it
+        }
     }
 
     Box(
@@ -39,32 +49,45 @@ fun AuthScreen(
                     .wrapContentHeight()
             ) {
                 AppNameText()
-                
-                Image(
-                    painter = painterResource(id = R.drawable.hmmm_face),
-                    contentDescription = null
-                )
+
+                if (modeOfAuth == AuthMode.SIGN_UP_MODE) {
+                    Image(
+                        painter = painterResource(id = R.drawable.hmmm_face),
+                        contentDescription = null
+                    )
+                }
+                else
+                    Image(
+                        painter = painterResource(id = R.drawable.smile_face),
+                        contentDescription = null
+                    )
+
+
             }
 
-//            LogInCard()
-            SignUpCard()
+            if (modeOfAuth == AuthMode.SIGN_UP_MODE) {
+                SignUpCard()
 
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .wrapContentHeight(),
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.hand),
-//                    contentDescription = null
-//                )
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .wrapContentHeight(),
+//                    horizontalArrangement = Arrangement.SpaceBetween
+//                ) {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.hand),
+//                        contentDescription = null
+//                    )
 //
-//                Image(
-//                    painter = painterResource(id = R.drawable.pencil),
-//                    contentDescription = null
-//                )
-//            }
+//                    Image(
+//                        painter = painterResource(id = R.drawable.pencil),
+//                        contentDescription = null
+//                    )
+//                }
+            }
+            else
+                SignInCard()
+
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import app.salo.przelewetarte.common.Resource
 import app.salo.przelewetarte.domain.use_case.UserMainUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +16,8 @@ class AuthViewModel @Inject constructor(
     private val user: UserMainUseCases
 ): ViewModel() {
     val isUserAuthenticated get() = user.isUserAuthenticated()
+
+    val authMode = MutableStateFlow<AuthMode>(AuthMode.SIGN_IN_MODE)
 
     private val _state = mutableStateOf(AuthState())
     val state: State<AuthState> = _state
