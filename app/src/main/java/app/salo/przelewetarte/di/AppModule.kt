@@ -5,10 +5,15 @@ import app.salo.przelewetarte.data.repository.MainRepositoryImpl
 import app.salo.przelewetarte.domain.repository.DatabaseRepository
 import app.salo.przelewetarte.domain.repository.MainRepository
 import app.salo.przelewetarte.domain.use_case.UserMainUseCases
+import app.salo.przelewetarte.domain.use_case.UserValidationUseCases
 import app.salo.przelewetarte.domain.use_case.user_main.UserAlreadyAuthenticatedUseCase
 import app.salo.przelewetarte.domain.use_case.user_main.UserSignInUseCase
 import app.salo.przelewetarte.domain.use_case.user_main.UserSignOutUseCase
 import app.salo.przelewetarte.domain.use_case.user_main.UserSignUpUseCase
+import app.salo.przelewetarte.domain.use_case.user_validation.ValidateEmailUseCase
+import app.salo.przelewetarte.domain.use_case.user_validation.ValidateNameUseCase
+import app.salo.przelewetarte.domain.use_case.user_validation.ValidatePasswordUseCase
+import app.salo.przelewetarte.domain.use_case.user_validation.ValidateTermsUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -18,7 +23,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -45,5 +49,13 @@ object AppModule {
         signOut = UserSignOutUseCase(mainRepository),
         signUp = UserSignUpUseCase(mainRepository),
         isUserAuthenticated = UserAlreadyAuthenticatedUseCase(mainRepository)
+    )
+
+    @Provides
+    fun providesValidationUseCases() = UserValidationUseCases(
+        email = ValidateEmailUseCase(),
+        password = ValidatePasswordUseCase(),
+        terms = ValidateTermsUseCase(),
+        username = ValidateNameUseCase()
     )
 }

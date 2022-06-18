@@ -41,13 +41,14 @@ class MainRepositoryImpl @Inject constructor(
             .addOnCompleteListener {
                 database
                     .child("users")
-                    .child(auth.uid ?: "333")
+                    .child(auth.uid ?: "007")
                     .child("username")
                     .setValue(username)
 
                     .addOnCompleteListener {
-                        Log.d("CreateUser", "SUCCESS")
-                        signUpResult.value = Resource.Success(true)
+                        if (auth.uid != null)
+                            Log.d("CreateUser", "SUCCESS")
+                            signUpResult.value = Resource.Success(true)
                     }
                     .addOnFailureListener { e ->
                         Log.e("CreateUser", "IS ERROR: ${e.message}")

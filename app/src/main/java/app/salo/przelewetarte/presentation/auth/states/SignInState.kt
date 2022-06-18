@@ -1,4 +1,4 @@
-package app.salo.przelewetarte.presentation.sign_in
+package app.salo.przelewetarte.presentation.auth.states
 
 data class SignInState(
     val isLoading: Boolean = false,
