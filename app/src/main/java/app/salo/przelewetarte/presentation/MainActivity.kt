@@ -12,8 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.salo.przelewetarte.presentation.home.HomeScreen
-import app.salo.przelewetarte.presentation.sign_in.AuthScreen
-import app.salo.przelewetarte.presentation.sign_up.SignUpScreen
+import app.salo.przelewetarte.presentation.auth.AuthScreen
 import app.salo.przelewetarte.presentation.theme.ui.PrzelewetarteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,10 +32,10 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.SignInScreen.route
+                        startDestination = Screen.AuthScreen.route
                     ) {
                         composable(
-                            route = Screen.SignInScreen.route
+                            route = Screen.AuthScreen.route
                         ) {
                             AuthScreen(navController = navController)
                         }
@@ -45,12 +44,6 @@ class MainActivity : ComponentActivity() {
                             route = Screen.HomeScreen.route
                         ) {
                             HomeScreen(navController = navController)
-                        }
-
-                        composable(
-                            route = Screen.SignUpScreen.route
-                        ) {
-                            SignUpScreen(navController = navController)
                         }
                     }
                 }

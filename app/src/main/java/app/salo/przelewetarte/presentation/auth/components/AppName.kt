@@ -1,4 +1,4 @@
-package app.salo.przelewetarte.presentation.sign_in.components
+package app.salo.przelewetarte.presentation.auth.components
 
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding

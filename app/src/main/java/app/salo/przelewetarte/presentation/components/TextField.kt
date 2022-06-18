@@ -11,6 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -19,9 +21,10 @@ import app.salo.przelewetarte.presentation.theme.mainFont
 @Composable
 fun BeautifulTextField(
     labelText: String,
-    hintText: String,
+    value: String,
     errorText: String = "",
-    isError: Boolean = false
+    isError: Boolean = false,
+    onValueChanged: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -37,11 +40,9 @@ fun BeautifulTextField(
             color = errorColor(isError)
         )
 
-        var text by remember { mutableStateOf(hintText) }
-
         TextField(
-            value = text,
-            onValueChange = { text = it },
+            value = value,
+            onValueChange = onValueChanged,
             modifier = Modifier
                 .fillMaxWidth()
                 .border(
@@ -58,6 +59,12 @@ fun BeautifulTextField(
                 unfocusedIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent
             ),
+            singleLine = true,
+            visualTransformation =
+                if (labelText.contains("Password"))
+                    PasswordVisualTransformation()
+                else
+                    VisualTransformation.None
         )
 
         if (isError) {

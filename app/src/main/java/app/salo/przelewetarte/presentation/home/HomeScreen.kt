@@ -45,7 +45,7 @@ fun HomeScreen(
                 Button(
                     onClick = {
                         viewModel.signOutUser()
-                        navController.navigate(Screen.SignInScreen.route)
+                        navController.navigate(Screen.AuthScreen.route)
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                 ) {
