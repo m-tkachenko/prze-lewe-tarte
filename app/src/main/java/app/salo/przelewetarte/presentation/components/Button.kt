@@ -11,6 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -32,7 +34,9 @@ fun OrangeButton(
     paddingVertical: Dp = 0.dp,
     textInButton: String,
     textSize: TextUnit,
-    fillMaxWidth: Boolean = false
+    fillMaxWidth: Boolean = false,
+    fontFamily: FontFamily = mainFont,
+    fontWeight: FontWeight = FontWeight.Normal
 ) {
     val localModifier =
         if (fillMaxWidth)
@@ -65,8 +69,9 @@ fun OrangeButton(
     ) {
         Text(
             text = textInButton,
-            fontFamily = mainFont,
+            fontFamily = fontFamily,
             fontSize = textSize,
+            fontWeight = fontWeight,
             color = Color.White,
             modifier = Modifier
                 .padding(
