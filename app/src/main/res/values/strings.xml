@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">przelewetarte</string>
+
+    <!--Lesson 1-->
+    <string name="description1">
+        The task is to spell all the capital letters to develop muscle memory.\nYou need to outline/write all the letters following the pattern shown on the sheet.
+    </string>
+
+    <!--Lesson 2-->
+    <string name="description2">
+        The task is to spell all the lower case letters.\nYou should outline/write all the letters following the pattern shown on the sheet.
+    </string>
+
+    <!--Lesson 3-->
+    <string name="description3">
+        The task is to write capital letters yourself.\nYou should write all the letters, but now there is no pattern visible on the sheet.
+    </string>
+
+    <!--Lesson 4-->
+    <string name="description4">
+        The task is to write the small letters yourself.\nYou should write all the letters, but now there is no pattern visible on the sheet.
+    </string>
+
+    <!--Lesson 5-->
+    <string name="description5">
+        The task is to spell out the numbers.\nYou have to draw/write all the digits following the pattern shown on the sheet.
+    </string>
+
+    <!--Lesson 6-->
+    <string name="description6">
+        The task is to write the numbers yourself.\nYou have to write the digits, but now there is no pattern visible on the sheet.
+    </string>
+
+    <!--Lesson 7-->
+    <string name="description7">
+        You already know what you can and cannot do. Think through all your weaknesses and redo the tasks.
+    </string>
+
+    <!--Lesson 8-->
+    <string name="description8">
+        The task is to write a whole sentence.\nThink of a text, maybe from your favourite book, and try to write this text with your left hand.
+    </string>
+
+    <!--Lesson 9-->
+    <string name="description9">
+        Congratulations!\nIf you are already on the ninth exercise, you have learned to write with your left hand.
+    </string>
 </resources>

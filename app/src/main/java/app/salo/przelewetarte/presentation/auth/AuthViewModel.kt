@@ -43,9 +43,12 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             user.signIn(email, password).collect { result ->
                 when(result) {
-                    is Resource.Success -> _userSignInState.value = SignInState(isSignIn = true)
-                    is Resource.Error -> _userSignInState.value = SignInState(error = result.message ?: "Error")
-                    is Resource.Loading -> _userSignInState.value = SignInState(isLoading = true)
+                    is Resource.Success ->
+                        _userSignInState.value = SignInState(isSignIn = true)
+                    is Resource.Error ->
+                        _userSignInState.value = SignInState(error = result.message ?: "Error")
+                    is Resource.Loading ->
+                        _userSignInState.value = SignInState(isLoading = true)
                 }
             }
         }

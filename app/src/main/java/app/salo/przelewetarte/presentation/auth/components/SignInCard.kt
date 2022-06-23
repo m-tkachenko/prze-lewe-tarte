@@ -20,6 +20,7 @@ import app.salo.przelewetarte.presentation.components.OrangeButton
 import app.salo.przelewetarte.presentation.auth.AuthMode
 import app.salo.przelewetarte.presentation.auth.AuthViewModel
 import app.salo.przelewetarte.presentation.auth.events.SignInEvent
+import app.salo.przelewetarte.presentation.components.LeweProgressBar
 
 @Composable
 fun SignInCard(
@@ -118,7 +119,7 @@ fun SignInCard(
                     paddingVertical = 5.dp
                 )
             else
-                CircularProgressIndicator()
+                LeweProgressBar(width = 0.9f)
 
             if (signInState.error.isNotBlank())
                 Toast.makeText(
