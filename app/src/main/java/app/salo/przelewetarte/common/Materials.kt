@@ -10,9 +10,9 @@ class Materials {
         R.drawable.lesson1,
         R.drawable.lesson2,
         R.drawable.lesson3,
+        R.drawable.lesson3,
         R.drawable.lesson1,
-        R.drawable.lesson2,
-        R.drawable.lesson3
+        R.drawable.lesson2
     )
 
     val descriptions = mutableListOf(

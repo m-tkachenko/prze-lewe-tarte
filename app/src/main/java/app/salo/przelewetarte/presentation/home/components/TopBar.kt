@@ -3,11 +3,13 @@ package app.salo.przelewetarte.presentation.home.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,13 +18,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import app.salo.przelewetarte.R
+import app.salo.przelewetarte.presentation.Screen
 import app.salo.przelewetarte.presentation.components.LeweProgressBar
 
 @Composable
 fun FunnyTopBar(
     username: String,
-    imageId: Int
+    imageId: Int,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -35,8 +40,7 @@ fun FunnyTopBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(color = MaterialTheme.colors.background)
-                .padding(bottom = 12.dp),
+                .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -59,6 +63,9 @@ fun FunnyTopBar(
                         color = Color.Black,
                         shape = CircleShape
                     )
+                    .clickable {
+                        navController.navigate(Screen.ProfileScreen.route)
+                    }
             )
         }
 
@@ -75,6 +82,5 @@ fun FunnyTopBar(
             progress = 0.3f,
             width = 0.65f
         )
-
     }
 }

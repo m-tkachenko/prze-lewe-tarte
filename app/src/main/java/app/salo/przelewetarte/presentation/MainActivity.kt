@@ -13,6 +13,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.salo.przelewetarte.presentation.home.HomeScreen
 import app.salo.przelewetarte.presentation.auth.AuthScreen
+import app.salo.przelewetarte.presentation.lesson.LessonScreen
+import app.salo.przelewetarte.presentation.profile.ProfileScreen
 import app.salo.przelewetarte.presentation.theme.ui.PrzelewetarteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +46,18 @@ class MainActivity : ComponentActivity() {
                             route = Screen.HomeScreen.route
                         ) {
                             HomeScreen(navController = navController)
+                        }
+
+                        composable(
+                            route = Screen.ProfileScreen.route
+                        ) {
+                            ProfileScreen(navController = navController)
+                        }
+
+                        composable(
+                            route = Screen.LessonScreen.route + "/{lessonId:}"
+                        ) {
+                            LessonScreen(navController = navController)
                         }
                     }
                 }

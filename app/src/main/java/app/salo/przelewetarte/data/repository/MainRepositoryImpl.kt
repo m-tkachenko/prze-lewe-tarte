@@ -13,7 +13,6 @@ class MainRepositoryImpl @Inject constructor(
     private val database: DatabaseReference,
     private val auth: FirebaseAuth
 ): MainRepository {
-
     override fun isUserAlreadyAuthenticated(): Boolean = auth.currentUser != null
 
     override suspend fun userSignIn(email: String, password: String): Flow<Resource<Boolean>> {
@@ -73,7 +72,7 @@ class MainRepositoryImpl @Inject constructor(
 
         database
             .child("users")
-            .child(auth.uid ?: "777")
+            .child(auth.uid ?: "007")
             .child("username")
             .setValue(username)
 

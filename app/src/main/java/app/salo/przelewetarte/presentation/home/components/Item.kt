@@ -3,6 +3,7 @@ package app.salo.przelewetarte.presentation.home.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -23,12 +24,12 @@ import androidx.compose.ui.unit.sp
 import app.salo.przelewetarte.presentation.components.OrangeButton
 import app.salo.przelewetarte.R
 
-
 @Composable
 fun PrettyItem(
     img: Int,
     titleText: String,
-    descriptionTextId: Int
+    descriptionTextId: Int,
+    onClick: () -> Unit
 ) {
     val InterFont = FontFamily(
         Font(R.font.inter_font, weight = FontWeight.Light),
@@ -36,7 +37,7 @@ fun PrettyItem(
     )
 
     Card(
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.onPrimary,
         modifier = Modifier
             .fillMaxWidth()
@@ -45,8 +46,11 @@ fun PrettyItem(
             .border(
                 width = 4.dp,
                 color = Color.Black,
-                shape = RoundedCornerShape(10.dp)
-            ),
+                shape = RoundedCornerShape(8.dp)
+            )
+            .clickable {
+                onClick()
+            },
         elevation = 5.dp
     ) {
         Column(
@@ -81,7 +85,7 @@ fun PrettyItem(
                 )
 
                 OrangeButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onClick() },
                     textInButton = "Next up",
                     textSize = 12.sp,
                     fontFamily = InterFont,
