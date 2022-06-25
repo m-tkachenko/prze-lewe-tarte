@@ -1,5 +1,6 @@
 package app.salo.przelewetarte.data.repository
 
+import android.net.Uri
 import android.util.Log
 import app.salo.przelewetarte.common.Resource
 import app.salo.przelewetarte.domain.repository.MainRepository
@@ -82,13 +83,36 @@ class MainRepositoryImpl @Inject constructor(
             }
             .addOnFailureListener { e ->
                 Log.e("CreateUser", "IS ERROR: ${e.message}")
-                editUsernameResult.value = Resource.Error(false, e.message ?: "Smth went wrong")
+                editUsernameResult.value =
+                    Resource.Error(false, e.message ?: "Smth went wrong")
             }
 
         return editUsernameResult
     }
 
-    override suspend fun addPhoto(): Flow<Resource<Boolean>> {
+    override suspend fun addProfilePhoto(photoUri: Uri): Flow<Resource<Boolean>> {
+        val addProfilePhotoResult = MutableStateFlow<Resource<Boolean>>(Resource.Loading())
+
+        database
+            .child("users")
+            .child(auth.uid ?: "007")
+            .child("profile_photo")
+            .setValue(photoUri)
+
+            .addOnCompleteListener {
+                Log.d("AddProfilePhoto", "SUCCESS")
+                addProfilePhotoResult.value = Resource.Success(true)
+            }
+            .addOnFailureListener { e ->
+                Log.e("CreateUser", "IS ERROR: ${e.message}")
+                addProfilePhotoResult.value =
+                    Resource.Error(false, e.message ?: "Smth went wrong")
+            }
+
+        return addProfilePhotoResult
+    }
+
+    override suspend fun addPhoto(photoUri: Uri): Flow<Resource<Boolean>> {
         TODO("Not yet implemented")
     }
 }

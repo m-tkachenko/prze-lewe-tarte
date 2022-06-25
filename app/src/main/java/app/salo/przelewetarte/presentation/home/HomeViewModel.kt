@@ -22,10 +22,4 @@ class HomeViewModel @Inject constructor(
     val lessonQuantity = materials.images.size
     val images = materials.images.toList()
     val descroptionTestIds = materials.descriptions.toList()
-
-    fun signOutUser() {
-        viewModelScope.launch {
-            user.signOut()
-        }
-    }
 }
