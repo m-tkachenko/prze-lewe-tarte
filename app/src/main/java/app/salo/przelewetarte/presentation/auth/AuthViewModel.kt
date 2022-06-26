@@ -25,10 +25,8 @@ class AuthViewModel @Inject constructor(
     private val user: UserAuthUseCases,
     private val validation: UserValidationUseCases
 ): ViewModel() {
-    val isUserAuthenticated get() = user.isUserAuthenticated()
-
     val authMode = MutableStateFlow(AuthMode.SIGN_IN_MODE)
-    val validationResult = MutableStateFlow(false)
+    private val validationResult = MutableStateFlow(false)
 
     private val _userSignInState = mutableStateOf(SignInState())
     val userSignInState: State<SignInState> = _userSignInState

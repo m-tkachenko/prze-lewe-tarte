@@ -23,9 +23,6 @@ fun AuthScreen(
     }
 
     LaunchedEffect(Unit) {
-        if(viewModel.isUserAuthenticated)
-            navController.navigate(Screen.HomeScreen.route)
-
         viewModel.authMode.collect {
             modeOfAuth = it
         }

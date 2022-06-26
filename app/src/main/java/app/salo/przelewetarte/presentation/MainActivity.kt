@@ -3,6 +3,7 @@ package app.salo.przelewetarte.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,11 +17,13 @@ import app.salo.przelewetarte.presentation.auth.AuthScreen
 import app.salo.przelewetarte.presentation.camera.CameraScreen
 import app.salo.przelewetarte.presentation.lesson.LessonScreen
 import app.salo.przelewetarte.presentation.profile.ProfileScreen
+import app.salo.przelewetarte.presentation.splash.SplashScreen
 import app.salo.przelewetarte.presentation.theme.ui.PrzelewetarteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,8 +38,14 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.AuthScreen.route
+                        startDestination = Screen.SplashScreen.route
                     ) {
+                        composable(
+                            route = Screen.SplashScreen.route
+                        ) {
+                            SplashScreen(navController = navController)
+                        }
+
                         composable(
                             route = Screen.AuthScreen.route
                         ) {
