@@ -4,9 +4,10 @@ import android.net.Uri
 import app.salo.przelewetarte.common.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface MainRepository {
+interface AuthRepository {
     // authentication
     fun isUserAlreadyAuthenticated(): Boolean
+    fun getUserUid(): String
 
     suspend fun userSignIn(email: String, password: String): Flow<Resource<Boolean>>
     suspend fun userSignUp(email: String, password: String, username: String): Flow<Resource<Boolean>>
@@ -14,6 +15,4 @@ interface MainRepository {
 
     // database
     suspend fun editUsername(username: String): Flow<Resource<Boolean>>
-    suspend fun addProfilePhoto(photoUri: Uri): Flow<Resource<Boolean>>
-    suspend fun addPhoto(photoUri: Uri): Flow<Resource<Boolean>>
 }

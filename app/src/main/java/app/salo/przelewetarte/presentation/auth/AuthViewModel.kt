@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.salo.przelewetarte.common.Resource
-import app.salo.przelewetarte.domain.use_case.UserMainUseCases
+import app.salo.przelewetarte.domain.use_case.UserAuthUseCases
 import app.salo.przelewetarte.domain.use_case.UserValidationUseCases
 import app.salo.przelewetarte.presentation.auth.events.SignInEvent
 import app.salo.przelewetarte.presentation.auth.events.SignUpEvent
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val user: UserMainUseCases,
+    private val user: UserAuthUseCases,
     private val validation: UserValidationUseCases
 ): ViewModel() {
     val isUserAuthenticated get() = user.isUserAuthenticated()

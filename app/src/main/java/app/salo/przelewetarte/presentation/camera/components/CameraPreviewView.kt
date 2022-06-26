@@ -9,18 +9,27 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Canvas
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import app.salo.przelewetarte.R
 import app.salo.przelewetarte.presentation.components.OrangeButton
+import app.salo.przelewetarte.presentation.home.components.FunnyTopBar
 import java.io.File
 import java.util.*
 import java.util.concurrent.Executors
@@ -61,24 +70,47 @@ fun SecondCameraPreviewView(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        AndroidView(
-            factory = { previewView },
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.6f)
-        )
+                .fillMaxSize()
+                .padding(vertical = 0.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            AndroidView(
+                factory = { previewView },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.85f)
+            )
 
-        OrangeButton(
-            onClick = cameraAction,
-            textInButton = "Cheeese",
-            textSize = 20.sp
-        )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentSize(Alignment.Center)
+            ) {
+                Box( modifier = Modifier
+                    .size(70.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colors.secondary)
+                    .border(
+                        width = 3.dp,
+                        shape = CircleShape,
+                        color = Color(0xFF14261F)
+                    )
+                    .clickable {
+                        cameraAction.invoke()
+                    }
+                )
+            }
+        }
     }
 }
 
 fun ImageCapture.takePicture(
     context: Context,
-    onImageCaptured: (Uri, Boolean) -> Unit,
+    onImageCaptured: (Uri) -> Unit,
     onError: (ImageCaptureException) -> Unit
 ) {
     val directory = context.outputDirectory()
@@ -94,7 +126,7 @@ fun ImageCapture.takePicture(
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 val uri = outputFileResults.savedUri ?: Uri.fromFile(file)
 
-                onImageCaptured(uri, false)
+                onImageCaptured(uri)
             }
 
             override fun onError(exception: ImageCaptureException) {

@@ -1,34 +1,39 @@
 package app.salo.przelewetarte.data.repository
 
-import android.net.Uri
 import android.util.Log
 import app.salo.przelewetarte.common.Resource
-import app.salo.przelewetarte.domain.repository.MainRepository
+import app.salo.przelewetarte.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class MainRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val database: DatabaseReference,
     private val auth: FirebaseAuth
-): MainRepository {
+): AuthRepository {
     override fun isUserAlreadyAuthenticated(): Boolean = auth.currentUser != null
+    override fun getUserUid(): String = auth.uid ?: "007"
 
     override suspend fun userSignIn(email: String, password: String): Flow<Resource<Boolean>> {
         val signInResult = MutableStateFlow<Resource<Boolean>>(Resource.Loading())
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (!task.isSuccessful) return@addOnCompleteListener
-
                 Log.d("UserSignIn", "IS SUCCESS")
-                signInResult.value = Resource.Success(true)
+                signInResult.value =
+                    Resource.Success(
+                        data = true
+                    )
             }
             .addOnFailureListener { e ->
-                Log.d("UserSignIn", "IS ERROR: ${e.message}")
-                signInResult.value = Resource.Error(false, e.message ?: "Smth went wrong")
+                Log.e("UserSignIn", "IS ERROR: ${e.message}")
+                signInResult.value =
+                    Resource.Error(
+                        data = false,
+                        message = e.message ?: "Smth went wrong"
+                    )
             }
 
         return signInResult
@@ -39,80 +44,71 @@ class MainRepositoryImpl @Inject constructor(
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
+
+                // add user to database
                 database
                     .child("users")
-                    .child(auth.uid ?: "007")
+                    .child(getUserUid())
                     .child("username")
                     .setValue(username)
 
                     .addOnCompleteListener {
-                        if (auth.uid != null)
+                        if (auth.uid != null) {
                             Log.d("CreateUser", "SUCCESS")
-                            signUpResult.value = Resource.Success(true)
+                            signUpResult.value =
+                                Resource.Success(
+                                    data = true
+                                )
+                        }
                     }
                     .addOnFailureListener { e ->
                         Log.e("CreateUser", "IS ERROR: ${e.message}")
-                        signUpResult.value = Resource.Error(false, e.message ?: "Smth went wrong")
+                        signUpResult.value =
+                            Resource.Error(
+                                data = false,
+                                message = e.message ?: "Smth went wrong"
+                            )
                     }
             }
             .addOnFailureListener { e ->
-                Log.d("UserSignUp", "IS ERROR: ${e.message}")
-                signUpResult.value = Resource.Error(true, e.message ?: "Smth went wrong")
+                Log.e("UserSignUp", "IS ERROR: ${e.message}")
+                signUpResult.value =
+                    Resource.Error(
+                        data = false,
+                        message = e.message ?: "Smth went wrong"
+                    )
             }
-
-        Log.d("PUPPY", (signUpResult.value.data ?: "aaa") as String)
 
         return signUpResult
     }
 
-    override suspend fun userSignOut() =
-        auth.signOut()
+    override suspend fun userSignOut() = auth.signOut()
 
     override suspend fun editUsername(username: String): Flow<Resource<Boolean>> {
         val editUsernameResult = MutableStateFlow<Resource<Boolean>>(Resource.Loading())
 
         database
             .child("users")
-            .child(auth.uid ?: "007")
+            .child(getUserUid())
             .child("username")
             .setValue(username)
 
             .addOnCompleteListener {
-                Log.d("CreateUser", "SUCCESS")
-                editUsernameResult.value = Resource.Success(true)
+                Log.d("EditUsername", "SUCCESS")
+                editUsernameResult.value =
+                    Resource.Success(
+                        data = true
+                    )
             }
             .addOnFailureListener { e ->
-                Log.e("CreateUser", "IS ERROR: ${e.message}")
+                Log.e("EditUsername", "IS ERROR: ${e.message}")
                 editUsernameResult.value =
-                    Resource.Error(false, e.message ?: "Smth went wrong")
+                    Resource.Error(
+                        data = false,
+                        message = e.message ?: "Smth went wrong"
+                    )
             }
 
         return editUsernameResult
-    }
-
-    override suspend fun addProfilePhoto(photoUri: Uri): Flow<Resource<Boolean>> {
-        val addProfilePhotoResult = MutableStateFlow<Resource<Boolean>>(Resource.Loading())
-
-        database
-            .child("users")
-            .child(auth.uid ?: "007")
-            .child("profile_photo")
-            .setValue(photoUri)
-
-            .addOnCompleteListener {
-                Log.d("AddProfilePhoto", "SUCCESS")
-                addProfilePhotoResult.value = Resource.Success(true)
-            }
-            .addOnFailureListener { e ->
-                Log.e("CreateUser", "IS ERROR: ${e.message}")
-                addProfilePhotoResult.value =
-                    Resource.Error(false, e.message ?: "Smth went wrong")
-            }
-
-        return addProfilePhotoResult
-    }
-
-    override suspend fun addPhoto(photoUri: Uri): Flow<Resource<Boolean>> {
-        TODO("Not yet implemented")
     }
 }

@@ -6,13 +6,13 @@ class Materials {
     val images = mutableListOf(
         R.drawable.lesson1,
         R.drawable.lesson2,
-        R.drawable.lesson3,
-        R.drawable.lesson1,
-        R.drawable.lesson2,
-        R.drawable.lesson3,
-        R.drawable.lesson3,
-        R.drawable.lesson1,
-        R.drawable.lesson2
+        R.drawable.lesson4,
+        R.drawable.lesson4,
+        R.drawable.lesson8,
+        R.drawable.lesson6,
+        R.drawable.lesson7,
+        R.drawable.lesson8,
+        R.drawable.lesson8
     )
 
     val descriptions = mutableListOf(

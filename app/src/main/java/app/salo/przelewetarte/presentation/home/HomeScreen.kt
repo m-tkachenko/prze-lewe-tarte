@@ -29,7 +29,7 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
             FunnyTopBar(
-                username = "Brian",
+                username = homeViewModel.username,
                 imageId = R.drawable.profile_image_3,
                 navController = navController
             )

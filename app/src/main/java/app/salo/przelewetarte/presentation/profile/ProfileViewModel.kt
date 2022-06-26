@@ -1,44 +1,51 @@
 package app.salo.przelewetarte.presentation.profile
 
-import android.net.Uri
-import android.util.Log
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import app.salo.przelewetarte.R
-import app.salo.przelewetarte.domain.use_case.UserMainUseCases
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+import androidx.lifecycle.viewModelScope
+import app.salo.przelewetarte.common.Resource
+import app.salo.przelewetarte.domain.use_case.UserAuthUseCases
+import app.salo.przelewetarte.domain.use_case.UserStorageUseCases
+import app.salo.przelewetarte.presentation.profile.states.GetPhotosState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.io.File
-import java.util.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val user: UserMainUseCases
+    private val user: UserAuthUseCases,
+    private val storage: UserStorageUseCases
 ): ViewModel() {
-    val photoUri: Uri =
-        Uri.fromFile(File(
-            "android.mipmap://" +
-                    R::class.java.`package`!!.name + "/" +
-                    R.drawable.profile_image_3
-        ))
+    val username = "Brian"
 
-    private val storage = Firebase.storage("gs://prze-lewe-tarte-1b203.appspot.com/").reference
+    private val _getPhotosState = mutableStateOf(GetPhotosState())
+    val getPhotosState: State<GetPhotosState> = _getPhotosState
 
-    fun createUserFolder() {
-        storage
-            .child("users")
-            .child("007")
-            .putFile(photoUri)
-
-            .addOnFailureListener {
-                Log.d("PUPPY", it.toString())
+    fun getPhotos() {
+        viewModelScope.launch {
+            storage.getPhotos().collect { result ->
+                when (result) {
+                    is Resource.Success ->
+                        _getPhotosState.value =
+                            GetPhotosState(photos = result.data ?: emptyList())
+                    is Resource.Error ->
+                        _getPhotosState.value =
+                            GetPhotosState(error = result.message ?: "Error")
+                    is Resource.Loading ->
+                        _getPhotosState.value =
+                            GetPhotosState(isLoading = true)
+                }
             }
+        }
+    }
+
+    fun signOutUser() {
+        viewModelScope.launch {
+            user.signOut()
+        }
     }
 }
 
-//    fun signOutUser() {
-//        viewModelScope.launch {
-//            user.signOut()
-//        }
-//    }

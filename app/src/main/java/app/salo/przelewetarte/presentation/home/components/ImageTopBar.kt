@@ -1,7 +1,6 @@
 package app.salo.przelewetarte.presentation.home.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,7 +8,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,7 +17,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import app.salo.przelewetarte.R
 import app.salo.przelewetarte.presentation.Screen
 import app.salo.przelewetarte.presentation.components.LeweProgressBar
 
@@ -47,8 +44,10 @@ fun FunnyTopBar(
             Text(
                 text = "Hello, ${username}!",
                 fontFamily = MaterialTheme.typography.body1.fontFamily,
-                fontSize = 24.sp,
-                color = Color(0xFF14261F)
+                fontSize = 28.sp,
+                color = Color(0xFF14261F),
+                modifier = Modifier
+                    .offset(y = 5.dp)
             )
 
             Image(
@@ -60,7 +59,7 @@ fun FunnyTopBar(
                     .clip(CircleShape)
                     .border(
                         width = 2.dp,
-                        color = Color.Black,
+                        color = Color(0xFF14261F),
                         shape = CircleShape
                     )
                     .clickable {
@@ -72,7 +71,7 @@ fun FunnyTopBar(
         Text(
             text = "Overall Progress",
             fontFamily = MaterialTheme.typography.body1.fontFamily,
-            fontSize = 20.sp,
+            fontSize = 22.sp,
             color = Color(0xFF14261F),
             modifier = Modifier
                 .padding(bottom = 8.dp)

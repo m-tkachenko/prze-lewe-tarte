@@ -7,6 +7,8 @@
         <entry key="../../../../../layout/compose-model-1652554189828.xml" value="1.0" />
         <entry key="../../../../../layout/compose-model-1655474416916.xml" value="0.335" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1345" />
+        <entry key="app/src/main/res/drawable/back_icon.xml" value="0.1345" />
+        <entry key="app/src/main/res/drawable/ic_arrow_back.xml" value="0.1345" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1345" />
       </map>
     </option>
