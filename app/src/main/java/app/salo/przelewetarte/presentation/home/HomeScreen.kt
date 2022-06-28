@@ -1,5 +1,6 @@
 package app.salo.przelewetarte.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.*
@@ -18,7 +19,12 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val homeState = homeViewModel.state.value
+    val usernameState = homeViewModel.getUsernameState.value
+    var username by remember { mutableStateOf("Loading...") }
+
+    LaunchedEffect(Unit) {
+        homeViewModel.getUsername()
+    }
 
     Box(
         modifier = Modifier
@@ -29,7 +35,7 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
             FunnyTopBar(
-                username = homeViewModel.username,
+                username = username,
                 imageId = R.drawable.profile_image_3,
                 navController = navController
             )
@@ -55,6 +61,16 @@ fun HomeScreen(
                     )
                 }
             }
+        }
+
+        if (usernameState.isLoading) {
+            username = "Loading..."
+        }
+        if (usernameState.error.isNotEmpty()) {
+            Log.d("PUPPY", "Error")
+        }
+        if (usernameState.username.isNotEmpty()) {
+            username = "Hello, ${usernameState.username}!"
         }
     }
 }

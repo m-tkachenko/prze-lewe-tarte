@@ -21,6 +21,8 @@ fun SplashScreen(
     LaunchedEffect(Unit) {
         if(splashViewModel.isUserAuthenticated)
             navController.navigate(Screen.HomeScreen.route)
+        else
+            navController.navigate(Screen.AuthScreen.route)
     }
 
     Box(
