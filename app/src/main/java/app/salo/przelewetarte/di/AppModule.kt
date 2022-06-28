@@ -7,10 +7,7 @@ import app.salo.przelewetarte.domain.repository.AuthRepository
 import app.salo.przelewetarte.domain.use_case.UserAuthUseCases
 import app.salo.przelewetarte.domain.use_case.UserStorageUseCases
 import app.salo.przelewetarte.domain.use_case.UserValidationUseCases
-import app.salo.przelewetarte.domain.use_case.user_main.UserAlreadyAuthenticatedUseCase
-import app.salo.przelewetarte.domain.use_case.user_main.UserSignInUseCase
-import app.salo.przelewetarte.domain.use_case.user_main.UserSignOutUseCase
-import app.salo.przelewetarte.domain.use_case.user_main.UserSignUpUseCase
+import app.salo.przelewetarte.domain.use_case.user_main.*
 import app.salo.przelewetarte.domain.use_case.user_storage.AddPhotoUseCase
 import app.salo.przelewetarte.domain.use_case.user_storage.AddProfilePhotoUseCase
 import app.salo.przelewetarte.domain.use_case.user_storage.GetPhotosUseCase
@@ -62,7 +59,8 @@ object AppModule {
         signIn = UserSignInUseCase(authRepository),
         signOut = UserSignOutUseCase(authRepository),
         signUp = UserSignUpUseCase(authRepository),
-        isUserAuthenticated = UserAlreadyAuthenticatedUseCase(authRepository)
+        isUserAuthenticated = UserAlreadyAuthenticatedUseCase(authRepository),
+        username = UserGetUsenameUseCase(authRepository)
     )
 
     @Provides

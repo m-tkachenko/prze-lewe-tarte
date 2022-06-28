@@ -39,6 +39,8 @@ fun SecondCameraPreviewView(
     imageCapture: ImageCapture,
     cameraAction: () -> Unit
 ) {
+    var clickedOnce = false
+
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -100,7 +102,10 @@ fun SecondCameraPreviewView(
                         color = Color(0xFF14261F)
                     )
                     .clickable {
-                        cameraAction.invoke()
+                        if (!clickedOnce) {
+                            cameraAction.invoke()
+                            clickedOnce = true
+                        }
                     }
                 )
             }

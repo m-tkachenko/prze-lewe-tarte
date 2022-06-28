@@ -1,6 +1,7 @@
 package app.salo.przelewetarte.presentation.profile
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -38,9 +39,12 @@ fun ProfileScreen(
     navController: NavController
 ) {
     val getPhotosState = profileViewModel.getPhotosState.value
+    val usernameState = profileViewModel.getUsernameState.value
+    var username by remember { mutableStateOf("Loading...") }
 
     LaunchedEffect(Unit){
         profileViewModel.getPhotos()
+        profileViewModel.getUsername()
     }
 
     Box(
@@ -78,7 +82,7 @@ fun ProfileScreen(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = profileViewModel.username,
+                text = username,
                 textAlign = TextAlign.Center,
                 fontFamily = MaterialTheme.typography.body1.fontFamily,
                 fontSize = 30.sp,
@@ -93,14 +97,6 @@ fun ProfileScreen(
                     .wrapContentHeight(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                OrangeButton(
-                    onClick = {
-                        navController.navigate(Screen.CameraScreen.route)
-                    },
-                    textInButton = "Camera",
-                    textSize = 16.sp
-                )
-
                 OrangeButton(
                     onClick = {
                         profileViewModel.signOutUser()
@@ -124,7 +120,30 @@ fun ProfileScreen(
                 color = Color(0xFF14261F),
             )
 
-            if (getPhotosState.isLoading) {
+            if (usernameState.isLoading) {
+                username = "Loading..."
+            }
+            if (usernameState.error.isNotEmpty()) {
+                Log.d("PUPPY", "Error")
+            }
+            if (usernameState.username.isNotEmpty()) {
+                username = usernameState.username
+            }
+
+            if (getPhotosState.isLoading && getPhotosState.photos.isEmpty()) {
+                Spacer(modifier = Modifier.height(130.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp),
+                    text = "You don't have images :(",
+                    textAlign = TextAlign.Center,
+                    fontFamily = MaterialTheme.typography.body1.fontFamily,
+                    fontSize = 34.sp,
+                    color = Color(0xFF14261F),
+                )
+            }
+            else if (getPhotosState.isLoading) {
                 Spacer(modifier = Modifier.height(110.dp))
                 Text(
                     modifier = Modifier

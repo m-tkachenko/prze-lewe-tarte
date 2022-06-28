@@ -111,4 +111,31 @@ class AuthRepositoryImpl @Inject constructor(
 
         return editUsernameResult
     }
+
+    override suspend fun getUsername(): Flow<Resource<String>> {
+        val getUsernameResult = MutableStateFlow<Resource<String>>(Resource.Loading())
+
+        database
+            .child("users")
+            .child(getUserUid())
+            .child("username")
+            .get()
+
+            .addOnCompleteListener { task ->
+                Log.d("GetUsername", "SUCCESS")
+                getUsernameResult.value =
+                    Resource.Success(
+                        data = task.result.value.toString()
+                    )
+            }
+            .addOnFailureListener { e ->
+                Log.e("GetUsername", "IS ERROR: ${e.message}")
+                getUsernameResult.value =
+                    Resource.Error(
+                        message = e.message ?: "Smth went wrong"
+                    )
+            }
+
+        return getUsernameResult
+    }
 }

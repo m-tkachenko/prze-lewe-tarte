@@ -9,6 +9,7 @@ interface AuthRepository {
     fun isUserAlreadyAuthenticated(): Boolean
     fun getUserUid(): String
 
+    suspend fun getUsername(): Flow<Resource<String>>
     suspend fun userSignIn(email: String, password: String): Flow<Resource<Boolean>>
     suspend fun userSignUp(email: String, password: String, username: String): Flow<Resource<Boolean>>
     suspend fun userSignOut()

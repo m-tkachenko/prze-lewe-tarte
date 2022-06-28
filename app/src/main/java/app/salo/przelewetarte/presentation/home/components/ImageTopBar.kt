@@ -42,7 +42,7 @@ fun FunnyTopBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Hello, ${username}!",
+                text = username,
                 fontFamily = MaterialTheme.typography.body1.fontFamily,
                 fontSize = 28.sp,
                 color = Color(0xFF14261F),
