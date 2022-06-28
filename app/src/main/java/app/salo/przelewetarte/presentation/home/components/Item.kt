@@ -60,7 +60,7 @@ fun PrettyItem(
             Image(
                 painter = painterResource(id = img),
                 contentDescription = null,
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
