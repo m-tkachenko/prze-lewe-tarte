@@ -27,15 +27,11 @@ class Materials {
         R.string.description9
     )
 
-    val text = listOf(
-        R.string.lesson1,
-        R.string.lesson2,
-        R.string.lesson3,
-        R.string.lesson4,
-        R.string.lesson5,
-        R.string.lesson6,
-        R.string.lesson7,
-        R.string.lesson8,
-        R.string.lesson9
+    val beginning = listOf(
+        R.string.lesson1_beginning
+    )
+
+    val task = listOf(
+        R.string.lesson1_task
     )
 }

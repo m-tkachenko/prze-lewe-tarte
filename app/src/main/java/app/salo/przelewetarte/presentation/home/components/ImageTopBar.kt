@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.salo.przelewetarte.presentation.Screen
 import app.salo.przelewetarte.presentation.components.LeweProgressBar
+import app.salo.przelewetarte.presentation.components.ProfileSnakeImage
 
 @Composable
 fun FunnyTopBar(
@@ -50,21 +51,13 @@ fun FunnyTopBar(
                     .offset(y = 5.dp)
             )
 
-            Image(
-                painter = painterResource(id = imageId),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(52.dp)
-                    .clip(CircleShape)
-                    .border(
-                        width = 2.dp,
-                        color = Color(0xFF14261F),
-                        shape = CircleShape
-                    )
-                    .clickable {
-                        navController.navigate(Screen.ProfileScreen.route)
-                    }
+            ProfileSnakeImage(
+                imageId = imageId,
+                onSnakeClick = {
+                    navController.navigate(Screen.ProfileScreen.route)
+                },
+                imageSize = 52.dp,
+                borderWidth = 2.dp
             )
         }
 

@@ -12,5 +12,6 @@ class LessonViewModel @Inject constructor(
 ): ViewModel() {
     private val materials = Materials()
     val images = materials.images
-    val textForLessons = materials.text
+    val beginnings = materials.beginning
+    val tasks = materials.task
 }

@@ -63,46 +63,6 @@ fun AuthScreen(
                 SignInCard(
                     navController = navController
                 )
-
-//                Row(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .wrapContentHeight(),
-//                    horizontalArrangement = Arrangement.SpaceBetween
-//                ) {
-//                    Image(
-//                        painter = painterResource(id = R.drawable.hand),
-//                        contentDescription = null
-//                    )
-//
-//                    Image(
-//                        painter = painterResource(id = R.drawable.pencil),
-//                        contentDescription = null
-//                    )
-//                }
         }
     }
 }
-
-//Button(
-//onClick = {
-//    viewModel.signInUser(email = "test2@gmail.com", password = "12345678")
-//},
-//colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
-//) {
-//    Text(text = "Sign in")
-//}
-//
-//Spacer(modifier = Modifier.padding(30.dp))
-//
-//Button(
-//onClick = {
-//    navController.navigate(Screen.SignUpScreen.route)
-//},
-//colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
-//) {
-//    Text(text = "Go to register form")
-//}
-//
-//Spacer(modifier = Modifier.padding(30.dp))
-//
