@@ -39,8 +39,6 @@ fun SecondCameraPreviewView(
     imageCapture: ImageCapture,
     cameraAction: () -> Unit
 ) {
-    var clickedOnce = false
-
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -92,21 +90,8 @@ fun SecondCameraPreviewView(
                     .fillMaxWidth()
                     .wrapContentSize(Alignment.Center)
             ) {
-                Box( modifier = Modifier
-                    .size(70.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colors.secondary)
-                    .border(
-                        width = 3.dp,
-                        shape = CircleShape,
-                        color = Color(0xFF14261F)
-                    )
-                    .clickable {
-                        if (!clickedOnce) {
-                            cameraAction.invoke()
-                            clickedOnce = true
-                        }
-                    }
+                OrangeCameraButton(
+                    onCameraClick = cameraAction
                 )
             }
         }

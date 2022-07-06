@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">przelewetarte</string>
+    <string name="ending">Remember, no rush! Save a picture of your progress to your profile ;-)</string>
+    <string name="printable">Above you have printable materials for this task :-*</string>
 
     <!--Lesson 1-->
     <string name="description1">
@@ -47,20 +49,8 @@
     </string>
 
     <!--Lesson 1-->
-    <string name="lesson1">
-        Hi, a warm welcome to the first exercise. Today we are going to start learning how to write with the left hand.
-        \n
-        The first exercise on the one hand is simple, but yet not, because writing with the left hand is a bit difficult. But dont worry - it will be fun.
-        \n
-        Task:
-        \n
-        In the attachment you have printable materials or you can do it at home by yourself. The task is to spell all the capital letters to develop your muscle memory.You should draw/write all the letters following the pattern shown on the sheet.
-        \n
-        Remember not to rush! Learning to write with your left hand takes time. Most important - be persistent and systematic in your efforts.
-        You can print the cards with 2-3 copies and practice until you get better.
-        \n
-        Share your successes! Add a picture of your actions to your profile.
-    </string>
+    <string name="lesson1_beginning">Hi, a warm welcome to the first exercise :-) Today we are going to start learning how to write with the left hand. Good luck!</string>
+    <string name="lesson1_task">You should spell all the capital letters to develop your muscle memory. You should draw all the letters following the pattern shown on the sheet.</string>
 
     <!--Lesson 2-->
     <string name="lesson2">

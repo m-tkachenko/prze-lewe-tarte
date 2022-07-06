@@ -56,7 +56,7 @@ fun HomeScreen(
                         titleText = "Lesson ${it + 1}",
                         descriptionTextId = homeViewModel.descroptionTestIds[it],
                         onClick = {
-                            navController.navigate(Screen.LessonScreen.route + "/id${it+1}")
+                            navController.navigate(Screen.LessonScreen.route + "/$it")
                         }
                     )
                 }

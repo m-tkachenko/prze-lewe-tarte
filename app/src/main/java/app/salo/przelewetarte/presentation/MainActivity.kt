@@ -9,9 +9,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import app.salo.przelewetarte.presentation.home.HomeScreen
 import app.salo.przelewetarte.presentation.auth.AuthScreen
 import app.salo.przelewetarte.presentation.camera.CameraScreen
@@ -65,9 +67,15 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(
-                            route = Screen.LessonScreen.route + "/{lessonId:}"
-                        ) {
-                            LessonScreen(navController = navController)
+                            route = Screen.LessonScreen.route + "/{lessonId}",
+                            arguments = listOf(navArgument(name = "lessonId") {
+                                type = NavType.StringType
+                            })
+                        ) { backStackEntry ->
+                            LessonScreen(
+                                navController = navController,
+                                lessonId = backStackEntry.arguments?.getString("lessonId")
+                            )
                         }
 
                         composable(
